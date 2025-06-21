@@ -10,11 +10,11 @@
   align-items: center;
   padding: 0 50px;
   height: var(--nav-height);
-  background-color: rgba(var(--bg-color), 0.85);
+  background-color: rgba(var(--bg-color-rgb), 0.85);
   backdrop-filter: blur(10px);
-  box-shadow: 0 10px 30px -10px var(--shadow-color);
-  z-index: 1000;
+  z-index: 11;
   transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+  opacity: 0; // For initial animation
 
   @include tablet {
     padding: 0 25px;
@@ -67,11 +67,21 @@
     gap: 2.5rem;
     li {
       counter-increment: item 1;
+      opacity: 0;
+      transform: translateY(-20px);
+      animation: fadeInDown 0.5s ease forwards;
+
       a::before {
         content: '0' counter(item) '.';
         margin-right: 5px;
         color: var(--primary-color);
         font-size: 0.9em;
+      }
+
+      @for $i from 1 through 4 {
+        &:nth-child(#{$i}) {
+            animation-delay: #{$i * 0.1}s;
+        }
       }
     }
   }
@@ -146,4 +156,11 @@
       display: block;
     }
   }
+}
+
+@keyframes fadeInDown {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

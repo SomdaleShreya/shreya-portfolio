@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './styles/main.scss';
 
 import Header from './components/Header';
+import LeftSidebar from './components/LeftSidebar';
+import RightSidebar from './components/RightSidebar';
 import Hero from './components/Hero';
 import About from './components/About';
 import Projects from './components/Projects';
@@ -11,6 +13,12 @@ import CursorSpotlight from './components/CursorSpotlight';
 
 function App() {
   const [theme, setTheme] = useState('dark');
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsMounted(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
@@ -42,16 +50,20 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className={`App ${isMounted ? 'mounted' : ''}`}>
       <CursorSpotlight />
       <Header toggleTheme={toggleTheme} currentTheme={theme} />
-      <main>
-        <Hero />
-        <About />
-        <Projects />
-        <Contact />
-      </main>
-      <Footer />
+      <LeftSidebar />
+      <RightSidebar />
+      <div id="content">
+        <main>
+          <Hero />
+          <About />
+          <Projects />
+          <Contact />
+        </main>
+        <Footer />
+      </div>
     </div>
   );
 }

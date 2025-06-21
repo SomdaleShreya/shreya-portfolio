@@ -1,0 +1,82 @@
+@import 'variables', 'mixins';
+
+.sidebar {
+  width: 40px;
+  position: fixed;
+  bottom: 0;
+  z-index: 10;
+  color: var(--text-color);
+  opacity: 0;
+  animation: fadeIn 0.5s ease 2s forwards;
+
+  @include tablet {
+    display: none;
+  }
+}
+
+.left-sidebar {
+  left: 40px;
+}
+
+.right-sidebar {
+  right: 40px;
+}
+
+.social-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 90px;
+    margin: 20px auto 0;
+    background-color: var(--text-color);
+  }
+
+  li {
+    margin-bottom: 20px;
+    a {
+      font-size: 1.3rem;
+      color: inherit;
+      transition: all 0.3s ease;
+      &:hover {
+        color: var(--primary-color);
+        transform: translateY(-3px);
+      }
+    }
+  }
+}
+
+.email-link-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 90px;
+    margin: 20px auto 0;
+    background-color: var(--text-color);
+  }
+
+  a {
+    writing-mode: vertical-rl;
+    text-decoration: none;
+    color: inherit;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    transition: all 0.3s ease;
+    &:hover {
+      color: var(--primary-color);
+      transform: translateY(-3px);
+    }
+  }
+}

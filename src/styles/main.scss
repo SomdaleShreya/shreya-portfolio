@@ -22,18 +22,27 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+#content {
+  padding: 0 150px;
+  @media (max-width: 1080px) {
+    padding: 0 100px;
+  }
+  @include tablet {
+    padding: 0 50px;
+  }
+  @media (max-width: 480px) {
+    padding: 0 25px;
+  }
+}
+
 .section {
   padding: 100px 0;
   max-width: 1000px;
   margin: 0 auto;
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition: opacity 0.6s ease-out 0.2s, transform 0.6s ease-out 0.2s;
 
-  @include tablet {
-    padding: 80px 25px;
-  }
-  
   &.visible {
     opacity: 1;
     transform: translateY(0);
@@ -50,6 +59,15 @@ body {
   white-space: nowrap;
   font-weight: 600;
   color: var(--heading-color);
+
+  &::before {
+    content: '0' counter(section) '.';
+    counter-increment: section;
+    margin-right: 10px;
+    color: var(--primary-color);
+    font-size: clamp(16px, 3vw, 20px);
+    font-weight: 400;
+  }
 
   &::after {
     content: '';
@@ -70,18 +88,38 @@ body {
   &.primary {
     @include button-styles(transparent, var(--primary-color), var(--primary-color));
     &:hover {
-      background-color: rgba(var(--primary-color), 0.1);
+      background-color: rgba(var(--primary-color-rgb), 0.1);
     }
   }
   &.secondary {
     @include button-styles(transparent, var(--text-color-light), var(--text-color-light));
      &:hover {
-      background-color: rgba(204, 214, 246, 0.1);
+      background-color: rgba(var(--text-color-light), 0.1);
     }
   }
 }
 
+body {
+  counter-reset: section;
+}
+
+// Global fade-in animation for mounted app
+.App.mounted {
+  .header { opacity: 1; transition-delay: 0.1s; }
+  .left-sidebar { opacity: 1; transition-delay: 0.2s; }
+  .right-sidebar { opacity: 1; transition-delay: 0.2s; }
+  .hero > * { opacity: 1; transform: translateY(0); }
+  .hero__intro { transition-delay: 0.3s; }
+  .hero__title { transition-delay: 0.4s; }
+  .hero__subtitle { transition-delay: 0.5s; }
+  .hero__description { transition-delay: 0.6s; }
+  .hero__cta-group { transition-delay: 0.7s; }
+}
+
+
+// Import component styles last
 @import './Header.scss';
+@import './Sidebars.scss';
 @import './Hero.scss';
 @import './About.scss';
 @import './Projects.scss';

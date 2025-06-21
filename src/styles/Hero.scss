@@ -8,14 +8,20 @@
   min-height: 100vh;
   padding: 0;
 
+  > * { // For initial animation
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
   &__intro {
     color: var(--primary-color);
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    margin-bottom: 20px;
   }
 
   &__title {
-    font-size: clamp(40px, 8vw, 80px);
+    font-size: clamp(40px, 8vw, 72px);
     font-weight: 700;
     color: var(--heading-color);
     margin: 0;
@@ -23,17 +29,18 @@
   }
 
   &__subtitle {
-    font-size: clamp(40px, 8vw, 80px);
+    font-size: clamp(32px, 7vw, 64px);
     font-weight: 700;
     color: var(--text-color);
-    margin-top: 10px;
-    line-height: 0.9;
+    margin-top: 5px;
+    line-height: 1.1;
   }
 
   &__description {
-    margin-top: 25px;
+    margin: 25px 0 0;
     max-width: 540px;
     font-size: 1.1rem;
+    line-height: 1.6;
   }
   
   &__cta-group {
