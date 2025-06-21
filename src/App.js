@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './styles/main.scss';
 
 import Header from './components/Header';
@@ -7,12 +7,22 @@ import About from './components/About';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import CursorSpotlight from './components/CursorSpotlight';
 
 function App() {
-  // This useEffect hook handles the scroll animation
+  const [theme, setTheme] = useState('dark');
+
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
+
+  useEffect(() => {
+    document.body.setAttribute('data-theme', theme);
+  }, [theme]);
+
   useEffect(() => {
     const sections = document.querySelectorAll('.section');
-    const observer = new IntersectionObserver(entries => {
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
@@ -23,14 +33,18 @@ function App() {
     sections.forEach(section => {
       observer.observe(section);
     });
-
-    // Cleanup observer on component unmount
-    return () => sections.forEach(section => observer.unobserve(section));
+    
+    return () => {
+      sections.forEach(section => {
+        if (section) observer.unobserve(section);
+      });
+    };
   }, []);
 
   return (
     <div className="App">
-      <Header />
+      <CursorSpotlight />
+      <Header toggleTheme={toggleTheme} currentTheme={theme} />
       <main>
         <Hero />
         <About />

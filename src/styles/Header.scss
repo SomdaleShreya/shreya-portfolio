@@ -1,4 +1,4 @@
-@import './variables';
+@import 'variables', 'mixins';
 
 .header {
   position: fixed;
@@ -8,78 +8,141 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 5%;
-  background-color: $white;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 0 50px;
+  height: var(--nav-height);
+  background-color: rgba(var(--bg-color), 0.85);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px -10px var(--shadow-color);
   z-index: 1000;
+  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+  @include tablet {
+    padding: 0 25px;
+  }
 
   &__logo a {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: 700;
-    color: $secondary-color;
+    color: var(--primary-color);
     text-decoration: none;
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    @include tablet {
+      display: none;
+      &.active {
+        display: flex;
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: min(75vw, 400px);
+        background-color: var(--bg-secondary);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-shadow: -10px 0 30px -15px var(--shadow-color);
+        animation: slideInRight 0.3s ease-in-out;
+        ul {
+          flex-direction: column;
+          text-align: center;
+          gap: 2rem;
+          font-size: 1.2rem;
+        }
+      }
+    }
   }
 
   &__nav ul {
     list-style: none;
     display: flex;
-    gap: 2rem;
+    gap: 2.5rem;
+    li {
+      counter-increment: item 1;
+      a::before {
+        content: '0' counter(item) '.';
+        margin-right: 5px;
+        color: var(--primary-color);
+        font-size: 0.9em;
+      }
+    }
   }
 
   &__nav a {
     text-decoration: none;
-    color: $secondary-color;
+    color: var(--text-color-light);
     font-weight: 500;
     transition: color 0.3s ease;
-
     &:hover {
-      color: $primary-color;
+      color: var(--primary-color);
+    }
+  }
+  
+  &__social-icon {
+    font-size: 1.3rem;
+    color: var(--text-color-light);
+    transition: color 0.3s ease, transform 0.3s ease;
+    &:hover {
+      color: var(--primary-color);
+      transform: translateY(-3px);
+    }
+    @include tablet {
+      display: none;
+    }
+  }
+  
+  &__socials--mobile {
+    display: none;
+    @include tablet {
+      display: flex;
+      gap: 2rem;
+      font-size: 1.5rem;
+      margin-top: 3rem;
+    }
+  }
+
+  .theme-toggle {
+    background: none;
+    border: none;
+    color: var(--text-color-light);
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+    &:hover {
+      color: var(--primary-color);
+      transform: scale(1.1);
     }
   }
 
   &__menu-icon {
     display: none;
     cursor: pointer;
+    z-index: 1001;
     .bar {
-      width: 25px;
-      height: 3px;
-      background-color: $secondary-color;
-      margin: 5px 0;
+      width: 30px;
+      height: 2px;
+      background-color: var(--primary-color);
+      margin: 6px 0;
       transition: 0.4s;
     }
-  }
-
-  // Responsive Styles
-  @media (max-width: $breakpoint-tablet) {
-    &__nav {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      width: 100%;
-      background-color: $white;
-      flex-direction: column;
-      align-items: center;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.5s ease-in-out;
-
-      &.active {
-        max-height: 300px; /* Adjust as needed */
-        padding: 1rem 0;
-      }
-
-      ul {
-        flex-direction: column;
-        width: 100%;
-        text-align: center;
-      }
-
-      li {
-        padding: 1rem 0;
-      }
+    .bar.open:nth-child(1) {
+      transform: rotate(-45deg) translate(-6px, 6px);
     }
-
-    &__menu-icon {
+    .bar.open:nth-child(2) {
+      opacity: 0;
+    }
+    .bar.open:nth-child(3) {
+      transform: rotate(45deg) translate(-6px, -6px);
+    }
+    @include tablet {
       display: block;
     }
   }

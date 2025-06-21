@@ -1,51 +1,44 @@
-@import './variables';
+@import 'variables', 'mixins';
 
 .hero {
   display: flex;
-  align-items: center;
   justify-content: center;
-  text-align: center;
+  flex-direction: column;
+  align-items: flex-start;
   min-height: 100vh;
-  padding: 0 5%;
+  padding: 0;
 
-  &__content {
-    max-width: 800px;
+  &__intro {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
   }
 
   &__title {
-    font-size: 3.5rem;
-    color: $secondary-color;
-    margin-bottom: 1rem;
+    font-size: clamp(40px, 8vw, 80px);
+    font-weight: 700;
+    color: var(--heading-color);
+    margin: 0;
+    line-height: 1.1;
   }
 
   &__subtitle {
-    font-size: 1.25rem;
-    color: lighten($secondary-color, 20%);
-    margin-bottom: 2rem;
+    font-size: clamp(40px, 8vw, 80px);
+    font-weight: 700;
+    color: var(--text-color);
+    margin-top: 10px;
+    line-height: 0.9;
   }
 
-  &__cta-button {
-    display: inline-block;
-    padding: 0.8rem 2.5rem;
-    background-color: $primary-color;
-    color: $white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: 600;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-    &:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
-    }
+  &__description {
+    margin-top: 25px;
+    max-width: 540px;
+    font-size: 1.1rem;
   }
-
-  @media (max-width: $breakpoint-tablet) {
-    &__title {
-      font-size: 2.5rem;
-    }
-    &__subtitle {
-      font-size: 1.1rem;
-    }
+  
+  &__cta-group {
+    margin-top: 50px;
+    display: flex;
+    gap: 1rem;
   }
 }

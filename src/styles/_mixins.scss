@@ -1,0 +1,33 @@
+@import 'variables';
+
+@mixin tablet {
+  @media (max-width: $breakpoint-tablet) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $breakpoint-desktop) {
+    @content;
+  }
+}
+
+@mixin button-styles($bg-color, $text-color, $border-color: transparent) {
+  display: inline-block;
+  padding: 0.9rem 1.9rem;
+  background-color: $bg-color;
+  color: $text-color;
+  border: 1px solid $border-color;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 500;
+  font-family: var(--font-primary);
+  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+  cursor: pointer;
+  line-height: 1;
+
+  &:hover {
+    transform: translateY(-3px);
+    background-color: transparent;
+  }
+}

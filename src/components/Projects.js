@@ -1,46 +1,36 @@
 import React from 'react';
+import { projectsData } from '../data/projectsData';
 import '../styles/Projects.scss';
-
-// You can create a projectsData array to make this cleaner
-const projectsData = [
-  {
-    title: 'Meditaker - Medicine Reminder System',
-    description: 'A full-stack application to help users manage medication schedules by scanning medicine details and setting timely reminders.',
-    tech: ['Java', 'React.js', 'SQL', 'Git'],
-    liveUrl: '#', // Add your live project URL
-    codeUrl: '#' // Add your GitHub repo URL
-  },
-  {
-    title: 'Event Management System',
-    description: 'Led a team to develop a system simplifying event booking with a user-friendly interface, calendar tracking, and secure login.',
-    tech: ['Java', 'React.js', 'SQL'],
-    liveUrl: '#',
-    codeUrl: '#'
-  },
-  {
-    title: 'Personal Portfolio Website',
-    description: 'A responsive portfolio built from scratch using React and SCSS to showcase my skills and projects to potential employers.',
-    tech: ['React.js', 'SCSS', 'JavaScript'],
-    liveUrl: '#', // The current site
-    codeUrl: '#' // The repo for this site
-  }
-];
+import { FaGithub } from "react-icons/fa";
+import { FiExternalLink } from "react-icons/fi";
 
 const Projects = () => {
   return (
     <section id="projects" className="projects section">
-      <h2 className="section__title">My Projects</h2>
-      <div className="projects__grid">
+      <h2 className="section__title">Things I've Built</h2>
+      <div className="projects__list">
         {projectsData.map((project, index) => (
-          <div className="project-card" key={index}>
-            <h3 className="project-card__title">{project.title}</h3>
-            <p className="project-card__description">{project.description}</p>
-            <div className="project-card__tech">
-              {project.tech.map((t, i) => <span key={i}>{t}</span>)}
+          <div className="project-item" key={index}>
+            <div className="project-item__image-container">
+              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                <img src={project.image} alt={`${project.title} screenshot`} className="project-item__image" />
+              </a>
             </div>
-            <div className="project-card__links">
-              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="project-card__link">Live Demo</a>
-              <a href={project.codeUrl} target="_blank" rel="noopener noreferrer" className="project-card__link">View Code</a>
+            <div className="project-item__content">
+              <p className="project-item__eyebrow">Featured Project</p>
+              <h3 className="project-item__title">
+                <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">{project.title}</a>
+              </h3>
+              <div className="project-item__description">
+                <p>{project.description}</p>
+              </div>
+              <ul className="project-item__tech-list">
+                {project.tech.map((t, i) => <li key={i}>{t}</li>)}
+              </ul>
+              <div className="project-item__links">
+                <a href={project.codeUrl} target="_blank" rel="noopener noreferrer" aria-label="GitHub Link"><FaGithub /></a>
+                <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" aria-label="External Link"><FiExternalLink /></a>
+              </div>
             </div>
           </div>
         ))}
@@ -48,5 +38,4 @@ const Projects = () => {
     </section>
   );
 };
-
 export default Projects;

@@ -1,32 +1,27 @@
 import React from 'react';
 import '../styles/About.scss';
-// import myImage from '../assets/your-professional-photo.jpg'; // Uncomment and use your photo
+
+const skills = ['Java', 'JavaScript (ES6+)', 'React.js', 'HTML5', 'SCSS', 'SQL', 'Git', 'Node.js', '.NET (Basic)'];
 
 const About = () => {
   return (
     <section id="about" className="about section">
       <h2 className="section__title">About Me</h2>
       <div className="about__content">
-        {/* <img src={myImage} alt="Shreya Somdale" className="about__image" /> */}
         <div className="about__text">
           <p>
-            I am a dedicated and detail-oriented Computer Engineering student at SKN Sinhgad College with an excellent academic record and a strong foundation in software development.
+            Hello! I'm Shreya, a passionate software engineer with a strong foundation in computer science and a love for creating elegant solutions to complex problems. My journey into tech began with a curiosity for how things work, which quickly evolved into a full-fledged passion for software development.
           </p>
           <p>
-            I am proficient in Java, JavaScript, and building responsive user interfaces with React.js. I thrive on solving complex problems and am passionate about learning new technologies and applying them to create efficient, scalable, and user-friendly solutions.
+            I thrive in environments where I can continuously learn and apply new technologies. I have hands-on experience in both frontend and backend development, allowing me to build complete, robust applications from scratch. I'm particularly interested in building beautiful, responsive user interfaces that provide a seamless user experience.
           </p>
-          <div className="about__skills">
-            <span className="skill-tag">Java</span>
-            <span className="skill-tag">React.js</span>
-            <span className="skill-tag">JavaScript</span>
-            <span className="skill-tag">HTML & SCSS</span>
-            <span className="skill-tag">SQL</span>
-            <span className="skill-tag">Git</span>
-          </div>
+          <p>Here are a few technologies I've been working with recently:</p>
+          <ul className="about__skills-list">
+            {skills.map((skill, i) => <li key={i}>{skill}</li>)}
+          </ul>
         </div>
       </div>
     </section>
   );
 };
-
 export default About;
